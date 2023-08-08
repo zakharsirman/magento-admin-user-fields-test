@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="IdeaInYou\AdminUserAdditionalFields\Logger\Handler\AdditionalFieldsHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/user_additional_fields.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IdeaInYou\AdminUserAdditionalFields\Logger\AdditionalFieldsLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\Logger\Handler\AdditionalFieldsHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

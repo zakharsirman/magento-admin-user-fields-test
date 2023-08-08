@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="IdeaInYou\AdminUserAdditionalFields\Api\AdditionalFieldSaveHandlerInterface"
+                type="IdeaInYou\AdminUserAdditionalFields\Model\CompositeAdditionalFieldSaveHandler"/>
+
+    <type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="iiy_admin_additional_fields"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\Block\User\Edit\AdminAdditionalFields"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Backend\Block\System\Account\Edit\Form">
+        <plugin name="iiy_admin_additional_fields"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\Block\User\Edit\AdminAdditionalFields"
+                sortOrder="10"/>
+        <plugin name="iiy_set_admin_user_form_encrypt"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\Block\Widget\SetFormEncrypt"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\User\Block\User\Edit\Form">
+        <plugin name="iiy_set_admin_user_form_encrypt"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\Block\Widget\SetFormEncrypt"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\User\Model\ResourceModel\User">
+        <plugin name="iiy_save_admin_user_additional_fields"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\Model\User\UserAdditionalFieldsSave"
+                sortOrder="10"/>
+    </type>
+
+    <virtualType name="IdeaInYou\AdminUserAdditionalFields\Model\JobDescriptionSaveHandler" type="IdeaInYou\AdminUserAdditionalFields\Model\DefaultSaveHandler">
+        <arguments>
+            <argument name="fieldCode" xsi:type="string">job_description</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IdeaInYou\AdminUserAdditionalFields\Model\PhoneNumberSaveHandler" type="IdeaInYou\AdminUserAdditionalFields\Model\DefaultSaveHandler">
+        <arguments>
+            <argument name="fieldCode" xsi:type="string">phone_number</argument>
+        </arguments>
+    </virtualType>
+    <type name="IdeaInYou\AdminUserAdditionalFields\Model\CompositeAdditionalFieldSaveHandler">
+        <arguments>
+            <argument name="saveHandlers" xsi:type="array">
+                <item name="job_description_save_handler" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\Model\JobDescriptionSaveHandler</item>
+                <item name="phone_number_save_handler" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\Model\PhoneNumberSaveHandler</item>
+                <item name="profile_photo_save_handler" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\Model\ProfilePhotoSaveHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="IdeaInYou\AdminUserAdditionalFields\Api\AdditionalFieldSaveHandlerInterface">
+        <plugin name="iiy_admin_user_save_field_code_check"
+                type="IdeaInYou\AdminUserAdditionalFields\Plugin\FieldCodeCheck"
+                sortOrder="10"/>
+    </type>
+
+    <virtualType name="IdeaInYou\AdminUserAdditionalFields\User\Upload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">tmp/user/profile_photo</argument>
+            <argument name="basePath" xsi:type="string">user/profile_photo</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="IdeaInYou\AdminUserAdditionalFields\Model\ProfilePhotoSaveHandler">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\User\Upload</argument>
+        </arguments>
+    </type>
+
+    <type name="IdeaInYou\AdminUserAdditionalFields\Plugin\Model\User\UserAdditionalFieldsSave">
+        <arguments>
+            <argument name="logger" xsi:type="object">IdeaInYou\AdminUserAdditionalFields\Logger\AdditionalFieldsLogger</argument>
+        </arguments>
+    </type>
+</config>

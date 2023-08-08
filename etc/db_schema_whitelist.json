@@ -1,0 +1,9 @@
+{
+    "admin_user": {
+        "column": {
+            "job_description": true,
+            "phone_number": true,
+            "profile_photo": true
+        }
+    }
+}

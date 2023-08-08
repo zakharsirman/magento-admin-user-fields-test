@@ -1,0 +1,24 @@
+{
+  "name": "idea-in-you/module-admin-user-additional-fields",
+  "version": "1.0.0",
+  "description": "Adds additional admin user fields and displays admin user picture",
+  "type": "magento2-module",
+  "require": {
+      "php": "~8.1.0||~8.2.0",
+      "magento/framework": "103.0.*",
+      "magento/module-backend": "102.0.*",
+      "magento/module-user": "101.2.*"
+  },
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "IdeaInYou\\AdminUserAdditionalFields\\": ""
+    }
+  }
+}

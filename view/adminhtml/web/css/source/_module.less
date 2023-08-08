@@ -1,0 +1,19 @@
+.admin-user {
+    //  User account action
+    .admin__action-dropdown {
+        &.custom-image {
+            &:before {
+                content: '';
+            }
+        }
+        .profile-image {
+            @_icon-user__size: 2rem;
+            left: 1.1rem;
+            margin-top: -(@_icon-user__size / 2) - .1rem;
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
